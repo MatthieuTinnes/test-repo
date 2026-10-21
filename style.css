@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #1b2a3a;
+  background: linear-gradient(180deg, #9fd8ef 0%, #e6f6fc 100%);
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-height: 100vh;
+  padding: 8px;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.stage {
+  position: relative;
+  width: min(calc(100vw - 16px), calc((100vh - 60px) * 3 / 4));
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 8px;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay h1,
+.overlay h2 {
+  margin: 0;
+}
+
+.overlay p {
+  margin: 0;
+}
+
+kbd {
+  padding: 1px 6px;
+  border: 1px solid #1b2a3a;
+  border-radius: 4px;
+  background: #fff;
+  font-family: inherit;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.primary {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  background: #2e7d32;
+  color: #fff;
+  font-weight: 600;
+}
+
+.primary:hover {
+  background: #256628;
+}
+
+.mute {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  border: 1px solid #1b2a3a;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+}
+
+button:focus-visible {
+  outline: 3px solid #ffb300;
+  outline-offset: 2px;
+}
