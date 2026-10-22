@@ -401,7 +401,7 @@ function stopLoop() {
 
 canvas.addEventListener('pointerdown', () => {
   ensureAudio();
-  if (state === 'menu') startGame();
+  if (state === 'menu' || state === 'gameover') startGame();
   else flap();
 });
 
@@ -414,7 +414,7 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     if (e.repeat) return;
     ensureAudio();
-    if (state === 'menu') startGame();
+    if (state === 'menu' || state === 'gameover') startGame();
     else flap();
     return;
   }
@@ -433,6 +433,15 @@ btnStart.addEventListener('click', () => {
 btnRetry.addEventListener('click', () => {
   ensureAudio();
   if (state === 'gameover') startGame();
+});
+
+// L'écran de fin couvre le canvas : un clic n'importe où dessus relance la partie.
+// Les boutons de l'écran gardent leur comportement natif.
+gameOverScreen.addEventListener('pointerdown', (e) => {
+  if (state !== 'gameover') return;
+  if (e.target instanceof HTMLButtonElement) return;
+  ensureAudio();
+  startGame();
 });
 
 btnMute.addEventListener('click', toggleMute);

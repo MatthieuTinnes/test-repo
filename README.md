@@ -14,7 +14,7 @@ Ouvrez simplement `index.html` dans votre navigateur (Chrome ou Firefox). Le jeu
 | --- | --- | --- |
 | Faire monter l'oiseau | `Espace` ou `Flèche haut` | clic sur le jeu |
 | Démarrer une partie | `Espace`, `Flèche haut` ou `Entrée` (sur l'écran de départ) | bouton « Jouer » |
-| Rejouer après une défaite | `Entrée` ou bouton « Rejouer » | bouton « Rejouer » |
+| Rejouer après une défaite | `Espace`, `Flèche haut` ou `Entrée` | clic sur l'écran de fin ou bouton « Rejouer » |
 | Couper / rétablir le son | `M` | bouton « Son » |
 
 ### Règles
