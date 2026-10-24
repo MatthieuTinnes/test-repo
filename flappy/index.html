@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flappy Bird</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-wrapper">
+    <div class="hud" aria-live="polite">
+      <span>Score : <strong id="score">0</strong></span>
+      <span>Record : <strong id="best">0</strong></span>
+    </div>
+
+    <div class="stage">
+      <canvas id="game" width="480" height="640" role="img" aria-label="Jeu Flappy Bird : maintenir l'oiseau en vol entre les tuyaux."></canvas>
+
+      <button id="btn-mute" class="mute" type="button">Son : activé</button>
+
+      <section id="screen-start" class="overlay" aria-labelledby="start-title">
+        <h1 id="start-title">Flappy Bird</h1>
+        <p>Espace, Flèche haut ou clic sur le jeu : faire monter l'oiseau.</p>
+        <p>Touche <kbd>M</kbd> : couper ou rétablir le son.</p>
+        <button id="btn-start" class="primary" type="button">Jouer</button>
+      </section>
+
+      <section id="screen-gameover" class="overlay hidden" aria-labelledby="over-title" aria-live="assertive">
+        <h2 id="over-title">Partie terminée</h2>
+        <p>Score final : <strong id="final-score">0</strong></p>
+        <p>Record : <strong id="final-best">0</strong></p>
+        <p>Espace, Flèche haut ou clic : rejouer.</p>
+        <button id="btn-retry" class="primary" type="button">Rejouer</button>
+      </section>
+    </div>
+  </main>
+
+  <script src="game.js" defer></script>
+</body>
+</html>
