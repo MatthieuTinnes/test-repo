@@ -1,5 +1,15 @@
 # test-repo
 
+## Déploiement
+
+Le jeu est déployé automatiquement sur GitHub Pages à chaque push sur `main` :
+
+<https://matthieutinnes.github.io/test-repo/>
+
+Le workflow `.github/workflows/deploy-pages.yml` publie les fichiers statiques
+(`index.html`, `style.css`, `game.js`). Il peut aussi être lancé manuellement
+depuis l'onglet « Actions » du dépôt.
+
 ## Jeu
 
 Un Flappy Bird en JavaScript, sans installation ni dépendance.
