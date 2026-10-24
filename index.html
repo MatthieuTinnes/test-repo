@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeux</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: #1b2a3a;
+      background: linear-gradient(180deg, #9fd8ef 0%, #e6f6fc 100%);
+    }
+
+    main {
+      width: min(calc(100vw - 32px), 480px);
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      padding: 16px 20px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    a {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1b2a3a;
+    }
+
+    p {
+      margin: 4px 0 0;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Jeux</h1>
+    <ul>
+      <li>
+        <a href="flappy/index.html">Flappy Bird</a>
+        <p>Passez entre les tuyaux sans les toucher.</p>
+      </li>
+      <li>
+        <a href="plateforme/index.html">Plateforme</a>
+        <p>Trois niveaux : pièces, ennemis et drapeau d'arrivée.</p>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>

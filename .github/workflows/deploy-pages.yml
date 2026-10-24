@@ -27,7 +27,7 @@ jobs:
       - name: Préparer le site statique
         run: |
           mkdir -p _site
-          cp index.html style.css game.js _site/
+          cp -r index.html flappy plateforme _site/
 
       - name: Configurer GitHub Pages
         uses: actions/configure-pages@v5
