@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lapin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-wrapper">
+    <div class="hud" aria-live="polite">
+      <span>Hauteur : <strong id="height">0</strong> m</span>
+      <span>Record : <strong id="best">0</strong> m</span>
+    </div>
+
+    <div class="stage">
+      <canvas id="game" width="480" height="640" role="img" aria-label="Jeu Doodle Jump : faites rebondir le lapin de plateforme en plateforme."></canvas>
+
+      <section id="screen-start" class="overlay" aria-labelledby="start-title">
+        <h1 id="start-title">Lapin</h1>
+        <p>Flèches gauche et droite : se déplacer. Le lapin rebondit tout seul.</p>
+        <p>Tombez hors de l'écran et la partie est finie.</p>
+        <p>Espace ou Entrée : démarrer.</p>
+        <button id="btn-start" class="primary" type="button">Jouer</button>
+      </section>
+
+      <section id="screen-end" class="overlay hidden" aria-labelledby="end-title" aria-live="assertive">
+        <h2 id="end-title">Partie terminée</h2>
+        <p>Hauteur finale : <strong id="final-score">0</strong> m</p>
+        <p>Record : <strong id="final-best">0</strong> m</p>
+        <p>Espace ou Entrée : rejouer.</p>
+        <button id="btn-retry" class="primary" type="button">Rejouer</button>
+      </section>
+    </div>
+
+    <div class="touch" aria-label="Commandes tactiles">
+      <button type="button" data-action="left" aria-label="Aller à gauche">◀</button>
+      <button type="button" data-action="right" aria-label="Aller à droite">▶</button>
+    </div>
+  </main>
+
+  <script src="game.js" defer></script>
+</body>
+</html>
