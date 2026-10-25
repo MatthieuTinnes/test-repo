@@ -6,11 +6,11 @@ Les jeux sont déployés automatiquement sur GitHub Pages à chaque push sur `ma
 
 <https://matthieutinnes.github.io/test-repo/>
 
-Le workflow `.github/workflows/deploy-pages.yml` publie la page d'accueil (`index.html`) ainsi que les dossiers `flappy/` et `plateforme/`. Il peut aussi être lancé manuellement depuis l'onglet « Actions » du dépôt.
+Le workflow `.github/workflows/deploy-pages.yml` publie la page d'accueil (`index.html`) ainsi que les dossiers `flappy/`, `plateforme/` et `lapin/`. Il peut aussi être lancé manuellement depuis l'onglet « Actions » du dépôt.
 
 ## Jeux
 
-Le dépôt contient deux jeux en JavaScript, sans installation ni dépendance. La page d'accueil `index.html` permet de choisir entre eux.
+Le dépôt contient trois jeux en JavaScript, sans installation ni dépendance. La page d'accueil `index.html` permet de choisir entre eux.
 
 ### Lancer les jeux
 
@@ -18,8 +18,9 @@ Ouvrez `index.html` dans votre navigateur (Chrome ou Firefox), ou directement l'
 
 - `flappy/index.html` : Flappy Bird
 - `plateforme/index.html` : jeu de plateforme en 3 niveaux
+- `lapin/index.html` : Lapin, un jeu type Doodle Jump
 
-Les deux jeux fonctionnent en ouverture directe via `file://`.
+Les trois jeux fonctionnent en ouverture directe via `file://`.
 
 ### Flappy Bird (`flappy/`)
 
@@ -84,10 +85,38 @@ Chaque niveau est une grille de caractères déclarée dans `plateforme/game.js`
 - `plateforme/style.css` : mise en page, habillage des écrans et des boutons tactiles.
 - `plateforme/game.js` : niveaux, physique, collisions, caméra, rendu et entrées.
 
+### Lapin (`lapin/`)
+
+#### Commandes
+
+| Action | Clavier | Écran tactile |
+| --- | --- | --- |
+| Se déplacer | `Flèche gauche` / `Flèche droite` | boutons ◀ et ▶ |
+| Démarrer ou rejouer | `Espace`, `Flèche haut` ou `Entrée` | bouton « Jouer » ou « Rejouer » |
+
+Les boutons tactiles supportent le multi-touch. Le lapin rebondit tout seul : il n'y a pas de bouton de saut.
+
+#### Règles
+
+- Le lapin monte sans fin : la caméra le suit vers le haut.
+- Il rebondit sur une plateforme quand il tombe dessus par le haut. Il la traverse par en dessous.
+- Quatre types de plateformes : normale (verte), mobile (bleue, va-et-vient), cassable (brune, disparaît après un rebond) et ressort (jaune, rebond plus haut).
+- Le score est la hauteur maximale atteinte, en mètres. Le record est sauvegardé dans le navigateur (`localStorage`, clé `lapin.record`).
+- Plus le lapin monte, plus les plateformes sont espacées et plus les mobiles et cassables sont fréquents, jusqu'à un plafond.
+- La partie se termine quand le lapin tombe sous l'écran.
+
+#### Fichiers
+
+- `lapin/index.html` : structure de la page, canvas, écrans (départ, fin de partie) et boutons tactiles.
+- `lapin/style.css` : mise en page, habillage des écrans et des boutons tactiles.
+- `lapin/game.js` : génération des plateformes (graine), physique, rebonds, caméra, rendu et entrées.
+
 ### Tests
 
-Les tests de niveaux et de physique tournent avec Node, sans navigateur :
+Les tests des jeux tournent avec Node, sans navigateur :
 
 ```sh
-node --test tests/plateforme.test.js
+node --test
 ```
+
+Les fichiers de tests sont `tests/plateforme.test.js` (niveaux et physique de `plateforme/`) et `tests/lapin.test.js` (génération, rebonds et fin de partie de `lapin/`). Le montage DOM minimal partagé est dans `tests/support/loadGame.js`.

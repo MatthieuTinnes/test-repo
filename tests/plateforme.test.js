@@ -2,56 +2,9 @@
 // Lancer avec : node --test tests/plateforme.test.js
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
+const { loadGame } = require('./support/loadGame');
 
-const SOURCE = fs.readFileSync(path.join(__dirname, '..', 'plateforme', 'game.js'), 'utf8');
-
-function noop() {}
-
-// Charge game.js dans un contexte isolé, avec un DOM minimal.
-function createGame() {
-  const ctxStub = new Proxy(
-    { createLinearGradient: () => ({ addColorStop: noop }) },
-    {
-      get: (target, key) => (key in target ? target[key] : noop),
-      set: (target, key, value) => {
-        target[key] = value;
-        return true;
-      },
-    },
-  );
-  const elements = {};
-  const makeElement = () => ({
-    textContent: '',
-    dataset: {},
-    style: {},
-    classList: { add: noop, remove: noop },
-    addEventListener: noop,
-    focus: noop,
-    setPointerCapture: noop,
-    getContext: () => ctxStub,
-  });
-  const sandbox = {
-    HTMLButtonElement: class {},
-    document: {
-      hidden: false,
-      getElementById: (id) => (elements[id] ??= makeElement()),
-      querySelectorAll: () => [],
-      addEventListener: noop,
-    },
-    window: { devicePixelRatio: 1, addEventListener: noop },
-    requestAnimationFrame: () => 1,
-    cancelAnimationFrame: noop,
-  };
-  vm.createContext(sandbox);
-  vm.runInContext(SOURCE, sandbox, { filename: 'game.js' });
-  return {
-    run: (code) => vm.runInContext(code, sandbox),
-    json: (expr) => JSON.parse(vm.runInContext(`JSON.stringify(${expr})`, sandbox)),
-  };
-}
+const createGame = () => loadGame('plateforme/game.js');
 
 test('chaque niveau est une grille rectangulaire, jouable et cohérente', () => {
   const game = createGame();
