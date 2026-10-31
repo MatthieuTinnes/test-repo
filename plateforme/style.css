@@ -14,6 +14,10 @@ body {
 }
 
 .game-wrapper {
+  /* Plus grande largeur possible sans déformer le canvas 480 × 384 (5:4),
+     en réservant la place du HUD et des boutons tactiles. */
+  --stage-width: min(calc(100vw - 16px), calc((100vh - 130px) * 5 / 4));
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +37,7 @@ body {
 
 .stage {
   position: relative;
-  width: min(calc(100vw - 16px), 480px);
+  width: var(--stage-width);
 }
 
 canvas {
@@ -100,8 +104,7 @@ button {
 .touch {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: 480px;
+  width: var(--stage-width);
   gap: 8px;
 }
 
