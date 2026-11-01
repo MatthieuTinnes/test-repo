@@ -37,6 +37,8 @@ const MOBILE_FREQ = 2.5; // rad/s
 
 const BEST_KEY = 'lapin.record';
 
+const CHARACTERS = ['rabbit', 'frog'];
+
 // --- Variables d'état ---
 
 const canvas = document.getElementById('game');
@@ -52,6 +54,7 @@ const btnRetry = document.getElementById('btn-retry');
 
 let state = 'menu'; // 'menu' | 'playing' | 'gameover'
 let best = loadBest();
+let character = 'rabbit'; // 'rabbit' | 'frog', choisi sur l'écran de départ ou de fin
 let world = createWorld(randomSeed());
 
 const keyInput = { left: false, right: false };
@@ -91,6 +94,11 @@ function difficulty(maxRise) {
 
 function heightMeters(current) {
   return Math.floor(current.maxRise / PX_PER_METER);
+}
+
+// Un nom de personnage inconnu retombe sur le lapin.
+function normalizeCharacter(name) {
+  return CHARACTERS.includes(name) ? name : 'rabbit';
 }
 
 // --- Persistance (localStorage peut être indisponible : navigation privée, iframe sandbox) ---
@@ -363,6 +371,68 @@ function drawRabbit(r) {
   ctx.restore();
 }
 
+// Grenouille dessinée en Canvas, dans la même boîte RABBIT_W × RABBIT_H que le lapin. Elle regarde vers facing.
+function drawFrog(r) {
+  ctx.save();
+  ctx.translate(r.x + RABBIT_W / 2, r.y);
+  ctx.scale(r.facing, 1);
+  ctx.translate(-RABBIT_W / 2, 0);
+  ctx.fillStyle = '#6abf4b';
+  ctx.strokeStyle = '#2f5e22';
+  ctx.lineWidth = 1.5;
+
+  // Pattes, puis corps
+  ctx.beginPath();
+  ctx.ellipse(10, 37, 4.5, 2.5, 0, 0, Math.PI * 2);
+  ctx.ellipse(24, 37, 4.5, 2.5, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(17, 24, 12, 11, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+
+  // Bras relevé du côté où la grenouille regarde
+  ctx.beginPath();
+  ctx.ellipse(28, 19, 2.5, 6, 0.6, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+
+  // Short jaune à pois rouges
+  ctx.fillStyle = '#ffd23f';
+  ctx.strokeStyle = '#c98f00';
+  ctx.beginPath();
+  ctx.ellipse(17, 31, 11, 6, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = '#e53935';
+  for (const [dx, dy] of [[11, 31], [17, 28], [23, 31], [14, 35], [20, 35]]) {
+    ctx.beginPath();
+    ctx.arc(dx, dy, 1.6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Gros yeux sur le dessus de la tête, puis pupilles
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = '#2f5e22';
+  ctx.beginPath();
+  ctx.arc(11, 9, 5, 0, Math.PI * 2);
+  ctx.arc(23, 9, 5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = '#222';
+  ctx.beginPath();
+  ctx.arc(12, 9, 2.2, 0, Math.PI * 2);
+  ctx.arc(24, 9, 2.2, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Sourire
+  ctx.beginPath();
+  ctx.arc(17, 17, 5, 0.25, Math.PI - 0.25);
+  ctx.stroke();
+  ctx.restore();
+}
+
 function render() {
   const sky = ctx.createLinearGradient(0, 0, 0, VIEW_H);
   sky.addColorStop(0, '#8fd3f4');
@@ -373,7 +443,8 @@ function render() {
   ctx.save();
   ctx.translate(0, -world.cameraY);
   for (const p of world.platforms) drawPlatform(p);
-  drawRabbit(world.rabbit);
+  if (character === 'frog') drawFrog(world.rabbit);
+  else drawRabbit(world.rabbit);
   ctx.restore();
 }
 
@@ -426,6 +497,18 @@ for (const btn of document.querySelectorAll('.touch button')) {
 
 btnStart.addEventListener('click', startAction);
 btnRetry.addEventListener('click', startAction);
+
+// Choix du personnage, sur l'écran de départ et sur l'écran de fin (data-character sur chaque bouton).
+function setCharacter(name) {
+  character = normalizeCharacter(name);
+  for (const btn of document.querySelectorAll('[data-character]')) {
+    btn.setAttribute('aria-pressed', String(btn.dataset.character === character));
+  }
+}
+
+for (const btn of document.querySelectorAll('[data-character]')) {
+  btn.addEventListener('click', () => setCharacter(btn.dataset.character));
+}
 
 // Évite qu'une touche reste « enfoncée » si la fenêtre perd le focus en plein mouvement.
 window.addEventListener('blur', () => {

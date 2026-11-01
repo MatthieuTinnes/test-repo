@@ -123,3 +123,14 @@ test('la caméra ne descend pas et les plateformes sous elle sont supprimées', 
   assert.equal(result.cameraY, 0);
   assert.equal(result.platformBelow, false);
 });
+
+test('le choix de personnage accepte lapin et grenouille, un nom inconnu retombe sur le lapin', () => {
+  const game = createGame();
+  const result = game.json(`({
+    frog: normalizeCharacter('frog'),
+    rabbit: normalizeCharacter('rabbit'),
+    unknown: normalizeCharacter('dragon'),
+  })`);
+
+  assert.deepEqual(result, { frog: 'frog', rabbit: 'rabbit', unknown: 'rabbit' });
+});

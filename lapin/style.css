@@ -80,6 +80,25 @@ button {
   cursor: pointer;
 }
 
+.characters {
+  display: flex;
+  gap: 8px;
+}
+
+.characters button {
+  padding: 6px 14px;
+  border: 2px solid #2e7d32;
+  border-radius: 6px;
+  background: #fff;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.characters button[aria-pressed="true"] {
+  background: #2e7d32;
+  color: #fff;
+}
+
 .primary {
   padding: 10px 24px;
   border: none;

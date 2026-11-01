@@ -21,6 +21,10 @@
         <p>Flèches gauche et droite : se déplacer. Le lapin rebondit tout seul.</p>
         <p>Tombez hors de l'écran et la partie est finie.</p>
         <p>Espace ou Entrée : démarrer.</p>
+        <div class="characters" role="group" aria-label="Personnage">
+          <button type="button" data-character="rabbit" aria-pressed="true">Lapin</button>
+          <button type="button" data-character="frog" aria-pressed="false">Grenouille</button>
+        </div>
         <button id="btn-start" class="primary" type="button">Jouer</button>
       </section>
 
@@ -29,6 +33,10 @@
         <p>Hauteur finale : <strong id="final-score">0</strong> m</p>
         <p>Record : <strong id="final-best">0</strong> m</p>
         <p>Espace ou Entrée : rejouer.</p>
+        <div class="characters" role="group" aria-label="Personnage">
+          <button type="button" data-character="rabbit" aria-pressed="true">Lapin</button>
+          <button type="button" data-character="frog" aria-pressed="false">Grenouille</button>
+        </div>
         <button id="btn-retry" class="primary" type="button">Rejouer</button>
       </section>
     </div>

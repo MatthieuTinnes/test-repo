@@ -98,6 +98,7 @@ Les boutons tactiles supportent le multi-touch. Le lapin rebondit tout seul : il
 
 #### Règles
 
+- Le joueur choisit entre le lapin et la grenouille (boutons « Lapin » / « Grenouille » sur l'écran de départ et de fin). Les deux ont la même taille et la même physique.
 - Le lapin monte sans fin : la caméra le suit vers le haut.
 - Il rebondit sur une plateforme quand il tombe dessus par le haut. Il la traverse par en dessous.
 - Quatre types de plateformes : normale (verte), mobile (bleue, va-et-vient), cassable (brune, disparaît après un rebond) et ressort (jaune, rebond plus haut).
