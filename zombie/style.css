@@ -1,0 +1,120 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #f5f1e8;
+  background: #1d1a2e;
+}
+
+.game-wrapper {
+  /* Plus grande largeur possible sans déformer le canvas 640 × 360 (16:9),
+     en réservant la place du HUD et du bouton tactile. */
+  --stage-width: min(calc(100vw - 16px), calc((100vh - 130px) * 16 / 9));
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-height: 100vh;
+  padding: 8px;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  width: var(--stage-width);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.stage {
+  position: relative;
+  width: var(--stage-width);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  text-align: center;
+  background: rgba(20, 14, 28, 0.78);
+  border-radius: 8px;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay h1,
+.overlay h2 {
+  margin: 0;
+}
+
+.overlay p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.primary {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  background: #8bc34a;
+  color: #1d1a2e;
+  font-weight: 600;
+}
+
+.primary:hover {
+  background: #7cb342;
+}
+
+.touch {
+  width: var(--stage-width);
+}
+
+.touch button {
+  width: 100%;
+  height: 64px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 600;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.touch button.active {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+button:focus-visible {
+  outline: 3px solid #ffb300;
+  outline-offset: 2px;
+}

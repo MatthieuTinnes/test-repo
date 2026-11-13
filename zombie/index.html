@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zombie</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-wrapper">
+    <div class="hud" aria-live="polite">
+      <span>Distance : <strong id="distance">0</strong> m</span>
+      <span>Record : <strong id="best">0</strong> m</span>
+    </div>
+
+    <div class="stage">
+      <canvas id="game" width="640" height="360" role="img" aria-label="Coureur infini : sautez par-dessus les zombies."></canvas>
+
+      <section id="screen-start" class="overlay" aria-labelledby="start-title">
+        <h1 id="start-title">Zombie</h1>
+        <p>Le coureur avance tout seul. Sautez par-dessus les zombies.</p>
+        <p>Espace, Flèche haut ou le bouton « Sauter » : sauter.</p>
+        <p>Un seul contact avec un zombie termine la partie.</p>
+        <p>Espace ou Entrée : démarrer.</p>
+        <button id="btn-start" class="primary" type="button">Jouer</button>
+      </section>
+
+      <section id="screen-end" class="overlay hidden" aria-labelledby="end-title" aria-live="assertive">
+        <h2 id="end-title">Partie terminée</h2>
+        <p>Distance parcourue : <strong id="final-score">0</strong> m</p>
+        <p>Record : <strong id="final-best">0</strong> m</p>
+        <p>Espace ou Entrée : rejouer.</p>
+        <button id="btn-retry" class="primary" type="button">Rejouer</button>
+      </section>
+    </div>
+
+    <div class="touch" aria-label="Commandes tactiles">
+      <button id="btn-jump" type="button" aria-label="Sauter">▲ Sauter</button>
+    </div>
+  </main>
+
+  <script src="game.js" defer></script>
+</body>
+</html>

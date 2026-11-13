@@ -6,11 +6,11 @@ Les jeux sont déployés automatiquement sur GitHub Pages à chaque push sur `ma
 
 <https://matthieutinnes.github.io/test-repo/>
 
-Le workflow `.github/workflows/deploy-pages.yml` publie la page d'accueil (`index.html`) ainsi que les dossiers `flappy/`, `plateforme/` et `lapin/`. Il peut aussi être lancé manuellement depuis l'onglet « Actions » du dépôt.
+Le workflow `.github/workflows/deploy-pages.yml` publie la page d'accueil (`index.html`) ainsi que les dossiers `flappy/`, `plateforme/`, `lapin/` et `zombie/`. Il peut aussi être lancé manuellement depuis l'onglet « Actions » du dépôt.
 
 ## Jeux
 
-Le dépôt contient trois jeux en JavaScript, sans installation ni dépendance. La page d'accueil `index.html` permet de choisir entre eux.
+Le dépôt contient quatre jeux en JavaScript, sans installation ni dépendance. La page d'accueil `index.html` permet de choisir entre eux.
 
 ### Lancer les jeux
 
@@ -19,8 +19,9 @@ Ouvrez `index.html` dans votre navigateur (Chrome ou Firefox), ou directement l'
 - `flappy/index.html` : Flappy Bird
 - `plateforme/index.html` : jeu de plateforme en 3 niveaux
 - `lapin/index.html` : Lapin, un jeu type Doodle Jump
+- `zombie/index.html` : Zombie, un coureur infini
 
-Les trois jeux fonctionnent en ouverture directe via `file://`.
+Les quatre jeux fonctionnent en ouverture directe via `file://`.
 
 ### Flappy Bird (`flappy/`)
 
@@ -112,6 +113,31 @@ Les boutons tactiles supportent le multi-touch. Le lapin rebondit tout seul : il
 - `lapin/style.css` : mise en page, habillage des écrans et des boutons tactiles.
 - `lapin/game.js` : génération des plateformes (graine), physique, rebonds, caméra, rendu et entrées.
 
+### Zombie (`zombie/`)
+
+#### Commandes
+
+| Action | Clavier | Écran tactile |
+| --- | --- | --- |
+| Sauter | `Espace` ou `Flèche haut` | bouton « Sauter » |
+| Démarrer ou rejouer | `Espace` ou `Entrée` (sur l'écran de départ ou de fin) | bouton « Jouer » ou « Rejouer » |
+
+Le coureur avance tout seul : le joueur ne fait que sauter par-dessus les zombies. Le saut est pris en compte un court instant avant l'atterrissage.
+
+#### Règles
+
+- Un seul contact avec un zombie termine la partie (pas de vies).
+- Le score est la distance parcourue, en mètres, affichée dans le HUD (en haut de l'écran). Le record est sauvegardé dans le navigateur (`localStorage`, clé `zombie.record`).
+- Plus la distance augmente, plus la vitesse grimpe et plus les zombies se rapprochent, jusqu'à un plafond.
+- Le graphisme est entièrement dessiné en Canvas (aucune image ni son).
+- L'écran de départ montre une démo : le coureur saute tout seul, sans pouvoir mourir.
+
+#### Fichiers
+
+- `zombie/index.html` : structure de la page, canvas, écrans (départ, fin de partie) et bouton tactile.
+- `zombie/style.css` : mise en page, habillage des écrans et du bouton tactile.
+- `zombie/game.js` : simulation (génération des zombies à partir d'une graine, saut, collisions, difficulté), rendu et entrées.
+
 ### Tests
 
 Les tests des jeux tournent avec Node, sans navigateur :
@@ -120,4 +146,4 @@ Les tests des jeux tournent avec Node, sans navigateur :
 node --test
 ```
 
-Les fichiers de tests sont `tests/plateforme.test.js` (niveaux et physique de `plateforme/`) et `tests/lapin.test.js` (génération, rebonds et fin de partie de `lapin/`). Le montage DOM minimal partagé est dans `tests/support/loadGame.js`.
+Les fichiers de tests sont `tests/plateforme.test.js` (niveaux et physique de `plateforme/`) et `tests/lapin.test.js` (génération, rebonds et fin de partie de `lapin/`), ainsi que `tests/zombie.test.js` (graine, saut, collision et plafond de difficulté de `zombie/`). Le montage DOM minimal partagé est dans `tests/support/loadGame.js`.
