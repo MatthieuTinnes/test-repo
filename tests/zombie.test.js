@@ -108,6 +108,40 @@ test('la vitesse et la densité des zombies augmentent puis plafonnent', () => {
   assert.equal(r.gapBeyond, r.gapCap, 'la densité ne dépasse pas le plafond');
 });
 
+test('au plafond de difficulté, un coureur qui saute au bon moment franchit les zombies consécutifs', () => {
+  const game = createGame();
+  const r = game.json(`(() => {
+    const seeds = [1, 2, 3, 4, 5, 6, 7, 8];
+    const results = seeds.map((seed) => {
+      const w = createWorld(seed);
+      // On se place directement au plafond de difficulté, avec une piste vierge.
+      w.distance = DIFF_DISTANCE;
+      w.zombies = [];
+      w.nextX = w.distance + VIEW_W + 120;
+      const passedZombies = new Set();
+      for (let i = 0; i < 60 * 60 && !w.over; i++) {
+        // Saut dès qu'un zombie est à moins de 60 px, uniquement au sol.
+        const runnerFront = w.distance + RUNNER_X + RUNNER_W;
+        const ahead = w.zombies.filter((z) => z.x >= runnerFront).map((z) => z.x);
+        const nearest = ahead.length ? Math.min(...ahead) : Infinity;
+        const jump = w.runner.onGround && nearest - runnerFront < 60;
+        updateWorld(w, { jump }, 1 / 60);
+        for (const z of w.zombies) {
+          if (z.x + z.w < w.distance + RUNNER_X) passedZombies.add(z);
+        }
+      }
+      const passed = passedZombies.size;
+      return { seed, over: w.over, passed };
+    });
+    return results;
+  })()`);
+
+  for (const { seed, over, passed } of r) {
+    assert.equal(over, false, `graine ${seed} : le coureur a été touché après ${passed} zombies`);
+    assert.ok(passed >= 10, `graine ${seed} : seulement ${passed} zombies franchis`);
+  }
+});
+
 test('le mode démo de l’écran de départ ne termine jamais la partie', () => {
   const game = createGame();
   const over = game.json(`(() => {

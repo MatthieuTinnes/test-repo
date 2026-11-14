@@ -24,9 +24,9 @@ const ZOMBIE_W_MAX = 40;
 
 // Vitesse et densité : elles passent de la valeur de départ à celle du plafond, sur DIFF_DISTANCE px.
 const SPEED_MIN = 300; // px/s
-const SPEED_MAX = 560; // px/s
+const SPEED_MAX = 500; // px/s
 const GAP_MAX = 420; // px entre deux zombies au départ
-const GAP_MIN = 240; // px au plafond : toujours franchissable par un saut
+const GAP_MIN = 290; // px au plafond : un saut couvre ~325 px à SPEED_MAX, l'écart moyen reste au-dessus
 const GAP_JITTER = 80; // px, variation aléatoire ajoutée à chaque écart
 const DIFF_DISTANCE = 3000; // px parcourus (300 m) pour atteindre le plafond
 
